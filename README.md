@@ -1,4 +1,4 @@
-vhost-manager
+vhost-builder
 =============
 
-Ansible role for managing vhosts
+Symfony2 Console command
