@@ -1,0 +1,21 @@
+{
+    "name": "nass600/vhost-creator",
+    "description": "Vhost creator command based on Console Component",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ignacio Velazquez",
+            "email": "ivelazquez85@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "~2.6",
+        "symfony/templating": "~2.6",
+        "symfony/filesystem": "~2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nass600\\": "src/Nass600"
+        }
+    }
+}
