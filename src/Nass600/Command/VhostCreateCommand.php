@@ -2,15 +2,12 @@
 
 namespace Nass600\Command;
 
+use Nass600\Builder\NginxBuilder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Templating\Loader\FilesystemLoader;
-use Symfony\Component\Templating\PhpEngine;
-use Symfony\Component\Templating\TemplateNameParser;
 
 /**
  * Class VhostCreateCommand
@@ -22,36 +19,33 @@ class VhostCreateCommand extends Command
     protected function configure()
     {
         $this
-            ->setName("vhost:create")
+            ->setName("nass600:vhost:create")
             ->setDescription("Creates an vhost for this project");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $config = [];
+
         $helper = $this->getHelper('question');
-
-        $loader = new FilesystemLoader(__DIR__.'/../Resources/views/%name%');
-        $templating = new PhpEngine(new TemplateNameParser(), $loader);
-
-        $fs = new Filesystem();
 
         // Httpd server
         $serverQuestion = new ChoiceQuestion(
-            '<question>Which server are you using?</question> ',
+            '<info>Which server are you using? <comment>(default: nginx)</comment></info> ',
             array('nginx', 'apache'),
             0
         );
         $serverQuestion->setErrorMessage('Web server %s not supported.');
 
-        $server = $helper->ask($input, $output, $serverQuestion);
+        $config['server'] = $helper->ask($input, $output, $serverQuestion);
 
         // Server name
-        $serverNameQuestion = new Question('<question>Which is the server name?</question> ');
+        $serverNameQuestion = new Question('<info>Which is the server name?</info> ');
 
-        $serverName = $helper->ask($input, $output, $serverNameQuestion);
+        $config['serverName'] = $helper->ask($input, $output, $serverNameQuestion);
 
         // Document root
-        $documentRootQuestion = new Question('<question>Where is the project stored?</question> ', 'hello');
+        $documentRootQuestion = new Question('<info>Where is the project stored?</info> ', 'hello');
 
         $documentRootQuestion->setValidator(function ($answer) {
             if (!file_exists($answer)) {
@@ -67,22 +61,20 @@ class VhostCreateCommand extends Command
             return $answer;
         });
 
-        $documentRoot = $helper->ask($input, $output, $documentRootQuestion);
+        $config['documentRoot'] = $helper->ask($input, $output, $documentRootQuestion);
 
-        $output = $templating->render('nginx.php', array(
-            'serverName'   => $serverName,
-            'documentRoot' => $documentRoot
-        ));
+        // Vhost filename
+        $vhostFilenameQuestion = new Question(
+            "<info>How would you like to name the vhost file? " .
+            "<comment>(default: {$config['serverName']})</comment></info> ",
+            $config['serverName']
+        );
 
-        $nginxPath = "/etc/nginx/sites-available";
-        $symlinkPath = "/etc/nginx/sites-enabled";
+        $config['vhostFilename'] = $helper->ask($input, $output, $vhostFilenameQuestion);
 
-        $configFile = "$nginxPath/$serverName";
+        $builder = new NginxBuilder($config);
 
-        $fs->dumpFile($configFile, $output);
-        $fs->symlink($configFile, $symlinkPath."/".$serverName);
-
-        shell_exec("service nginx restart");
+        $builder->createVhost()->restartService();
     }
 }
  

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nass600\Silex\Provider\Tests;
+namespace Nass600\Command\Tests;
 
 use Nass600\Command\VhostCreateCommand;
 use Symfony\Component\Console\Application;
