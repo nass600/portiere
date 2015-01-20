@@ -29,6 +29,6 @@ server {
         internal;
     }
 
-    error_log /var/log/nginx/project_error.log;
-    access_log /var/log/nginx/project_access.log;
+    error_log <?php echo $logsDir . $errorLogfile ?>;
+    access_log <?php echo $logsDir . $accessLogfile ?>;
 }

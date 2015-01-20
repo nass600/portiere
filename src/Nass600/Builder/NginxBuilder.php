@@ -9,6 +9,8 @@ class NginxBuilder extends Builder
     protected $config = [
         'sitesAvailablePath' => '/etc/nginx/sites-available/',
         'sitesEnabledPath'   => '/etc/nginx/sites-enabled/',
+        'logsDir'            => '/var/nginx/',
+        'hostsFilePath'      => '/etc/hosts'
     ];
 
     public function __construct($config)
