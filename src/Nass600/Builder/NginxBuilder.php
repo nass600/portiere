@@ -9,7 +9,7 @@ class NginxBuilder extends Builder
     protected $config = [
         'sitesAvailablePath' => '/etc/nginx/sites-available/',
         'sitesEnabledPath'   => '/etc/nginx/sites-enabled/',
-        'logsDir'            => '/var/logs/nginx/',
+        'logsDir'            => '/var/log/nginx/',
         'hostsFilePath'      => '/etc/hosts'
     ];
 
