@@ -1,32 +1,21 @@
 server {
     server_name <?php echo $serverName ?>;
     root <?php echo $documentRoot ?>;
+    <?php $frontController = ($env == "prod") ? "app" : "app_" . $env ?>
 
     location / {
-        # try to serve file directly, fallback to app.php
-        try_files $uri /app.php$is_args$args;
+        try_files $uri /<?php echo $frontController ?>.php$is_args$args;
     }
-    # DEV
-    # This rule should only be placed on your development environment
-    # In production, don't include this and don't deploy app_dev.php or config.php
-    location ~ ^/(app_dev|config)\.php(/|$) {
+
+    location ~ ^/(<?php echo $frontController ?>)\.php(/|$) {
         fastcgi_pass unix:/var/run/php5-fpm.sock;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param HTTPS off;
-    }
-    # PROD
-    location ~ ^/app\.php(/|$) {
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_split_path_info ^(.+\.php)(/.*)$;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_param HTTPS off;
-        # Prevents URIs that include the front controller. This will 404:
-        # http://domain.tld/app.php/some-path
-        # Remove the internal directive to allow URIs like this
-        internal;
+        <?php if ($env === "prod") : ?>
+            internal;
+        <?php endif ?>
     }
 
     error_log <?php echo $logsDir . $errorLogfile ?>;

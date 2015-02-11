@@ -57,6 +57,12 @@ class VhostCreateCommand extends Command
                 'al',
                 InputOption::VALUE_OPTIONAL,
                 'How do you want to name the access log file?'
+            )
+            ->addOption(
+                'env',
+                'e',
+                InputOption::VALUE_OPTIONAL,
+                'Which environment do you want to setup?'
             );
 
     }
@@ -92,7 +98,7 @@ class VhostCreateCommand extends Command
         // Document root
         $config['documentRoot'] = $input->getOption('document-root');
         if (null === $config['documentRoot']) {
-            $documentRootQuestion = new Question('<info>Where is the project stored?</info> ', 'hello');
+            $documentRootQuestion = new Question('<info>Where is the project stored?</info> ');
 
             $documentRootQuestion->setValidator(function ($answer) {
                 if (!file_exists($answer)) {
@@ -145,6 +151,18 @@ class VhostCreateCommand extends Command
             );
 
             $config['accessLogfile'] = $question->ask($input, $output, $accessLogfileQuestion);
+        }
+
+        // Environment
+        $config['env'] = $input->getOption('env');
+        if (null === $config['env']) {
+            $envQuestion = new Question(
+                "<info>Wich environment do you want to setup? " .
+                "<comment>(default: dev)</comment></info> ",
+                "dev"
+            );
+
+            $config['env'] = $question->ask($input, $output, $envQuestion);
         }
 
         $builder = new NginxBuilder($config);
