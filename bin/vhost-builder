@@ -1,16 +1,4 @@
 #!/usr/bin/env php
 <?php
 
-foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
-    if (file_exists($file)) {
-        define('AUTOLOAD_FILE', $file);
-        break;
-    }
-}
-
-if (defined('AUTOLOAD_FILE')) {
-    require AUTOLOAD_FILE;
-
-    $app = new Nass600\Tool\Application('Vhost Builder', '1.0.0');
-    $app->run();
-}
+include('vhost-builder.php');
