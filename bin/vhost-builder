@@ -9,7 +9,7 @@ foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.p
 }
 
 if (defined('AUTOLOAD_FILE')) {
-    require $file;
+    require AUTOLOAD_FILE;
 
     $app = new Nass600\Tool\Application('Vhost Builder', '1.0.0');
     $app->run();
