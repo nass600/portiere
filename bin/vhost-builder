@@ -1,11 +1,16 @@
 #!/usr/bin/env php
 <?php
 
-use Nass600\Tool\Application;
-use Nass600\Command\VhostCreateCommand;
+foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        define('AUTOLOAD_FILE', $file);
+        break;
+    }
+}
 
-$app = new Application('Vhost Builder', '1.0.0');
-$app->add(
-    new VhostCreateCommand()
-);
-$app->run();
+if (defined('AUTOLOAD_FILE')) {
+    require $file;
+
+    $app = new Nass600\Tool\Application('Vhost Builder', '1.0.0');
+    $app->run();
+}
