@@ -1,6 +1,9 @@
 {
     "name": "nass600/vhost-builder",
     "description": "Vhost builder command based on Console Component",
+    "type": "library",
+    "keywords": ["symfony", "command", "vhost", "nginx", "apache"],
+    "homepage": "http://github.com/nass600/vhost-builder",
     "license": "MIT",
     "authors": [
         {
@@ -13,10 +16,17 @@
         "symfony/templating": "~2.6",
         "symfony/filesystem": "~2.6"
     },
-    "bin": ["bin/vhost-builder"],
     "autoload": {
         "psr-4": {
             "Nass600\\": "src/Nass600"
+        }
+    },
+    "bin": [
+        "bin/vhost-builder"
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
         }
     }
 }
