@@ -1,10 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+use Nass600\Tool\Application;
+use Nass600\Command\VhostCreateCommand;
 
-$app = new \Nass600\Tool\Application('Vhost Builder', '1.0.0');
+$app = new Application('Vhost Builder', '1.0.0');
 $app->add(
-    new \Nass600\Command\VhostCreateCommand()
+    new VhostCreateCommand()
 );
 $app->run();
