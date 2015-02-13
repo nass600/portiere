@@ -1,6 +1,6 @@
 {
-    "name": "nass600/vhost-creator",
-    "description": "Vhost creator command based on Console Component",
+    "name": "nass600/vhost-builder",
+    "description": "Vhost builder command based on Console Component",
     "license": "MIT",
     "authors": [
         {
