@@ -202,4 +202,3 @@ class VhostCreateCommand extends Command
         }
     }
 }
- 

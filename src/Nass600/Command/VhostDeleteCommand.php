@@ -100,4 +100,3 @@ class VhostDeleteCommand extends Command
         $output->writeln("\nAwesome!! <info>Your vhost has been successfully deleted</info>");
     }
 }
- 
