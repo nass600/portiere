@@ -6,6 +6,9 @@ class NginxBuilder extends Builder
 {
     const TEMPLATE_FILE = 'nginx.php';
 
+    /**
+     * @var array
+     */
     protected $config = [
         'sitesAvailablePath' => '/etc/nginx/sites-available/',
         'sitesEnabledPath'   => '/etc/nginx/sites-enabled/',
@@ -18,6 +21,17 @@ class NginxBuilder extends Builder
         parent::__construct(array_merge($this->config, $config));
     }
 
+    /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @return false|string
+     */
     public function getTemplate()
     {
         return $this->templating->render(self::TEMPLATE_FILE, $this->config);
@@ -31,6 +45,22 @@ class NginxBuilder extends Builder
 
         $this->fs->dumpFile($vhostPath, $template);
         $this->fs->symlink($vhostPath, $vhostSymPath);
+
+        return $this;
+    }
+
+    public function deleteVhost()
+    {
+        $filesToDelete = [
+            $this->config['sitesAvailablePath'] . $this->config['serverName'],
+            $this->config['sitesEnabledPath'] . $this->config['serverName'],
+            $this->config['logsDir'] . $this->config['serverName'] . '.error',
+            $this->config['logsDir'] . $this->config['serverName'] . '.access'
+        ];
+
+        foreach ($filesToDelete as $file) {
+            $this->fs->remove($file);
+        }
 
         return $this;
     }

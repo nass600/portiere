@@ -175,7 +175,7 @@ class VhostCreateCommand extends Command
         // Confirm generation
         if (!$dialog->askConfirmation(
             $output,
-            "\n<question>Is every thing ok?</question> ",
+            "\n<question>Is everything ok?</question> ",
             false
         )) {
             $output->writeln(

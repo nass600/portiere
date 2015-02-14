@@ -11,5 +11,5 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     throw new Exception("Autoload file not found");
 }
 
-$app = new Nass600\Tool\Application('Vhost Builder', '1.0.0');
+$app = new Nass600\Tool\VhostDeleteTool('Vhost Builder', '1.0.0');
 $app->run();
