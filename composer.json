@@ -22,7 +22,8 @@
         }
     },
     "bin": [
-        "bin/vhost-builder"
+        "bin/vhost-create",
+        "bin/vhost-delete"
     ],
     "config": {
         "bin-dir": "bin"
