@@ -2,29 +2,34 @@
 
 namespace Nass600\Command\Tests;
 
-use Nass600\Command\VhostCreateCommand;
+use Nass600\Command\VhostDeleteCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Class VhostCreateCommandTest
+ * Class VhostDeleteCommandTest
  *
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
-class VhostCreateCommandTest extends \PHPUnit_Framework_TestCase
+class VhostDeleteCommandTest extends \PHPUnit_Framework_TestCase
 {
     protected $app;
 
     public function setUp()
     {
         $this->app = new Application();
-        $this->app->add(new VhostCreateCommand());
+        $this->app->add(new VhostDeleteCommand());
     }
 
-    public function testCommand($parameters = array())
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testNotEnoughArguments()
     {
-        $command = $this->app->find('vhost:create');
+        $command = $this->app->find('nass600:vhost:delete');
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array('command' => $command->getName()));
+        $commandTester->execute(array(
+            'command'      => $command->getName()
+        ));
     }
 }

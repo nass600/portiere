@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 
 /**
@@ -24,38 +23,39 @@ class VhostCreateCommand extends Command
             ->setName("nass600:vhost:create")
             ->setDescription("Creates an vhost for this project")
             ->addArgument(
-                'server-name',
+                'serverName',
                 InputArgument::REQUIRED,
-                'Which is the server name?'
+                'Server name of the virtual host'
             )
             ->addArgument(
-                'document-root',
+                'documentRoot',
                 InputArgument::REQUIRED,
-                'Where is the project stored?'
+                'Path to the project\'s directory'
             )
             ->addOption(
                 'vhost-filename',
                 'vf',
                 InputOption::VALUE_OPTIONAL,
-                'How would you like to name the vhost file?'
+                'Filename of the virtual host'
             )
             ->addOption(
                 'error-logfile',
                 'el',
                 InputOption::VALUE_OPTIONAL,
-                'How do you want to name the error log file?'
+                'Filename of the error log'
             )
             ->addOption(
                 'access-logfile',
                 'al',
                 InputOption::VALUE_OPTIONAL,
-                'How do you want to name the access log file?'
+                'Filename of the access log'
             )
             ->addOption(
                 'env',
                 'e',
-                InputOption::VALUE_OPTIONAL,
-                'Which environment do you want to setup?'
+                InputOption::VALUE_REQUIRED,
+                'Symfony2 environment to activate',
+                'dev'
             );
 
     }
@@ -68,10 +68,10 @@ class VhostCreateCommand extends Command
         $dialog = $this->getHelper('dialog');
 
         // Server name
-        $config['serverName'] = $input->getArgument('server-name');
+        $config['serverName'] = $input->getArgument('serverName');
 
         // Document root
-        $config['documentRoot'] = $input->getArgument('document-root');
+        $config['documentRoot'] = $input->getArgument('documentRoot');
 
         if (!file_exists($config['documentRoot'])) {
             throw new \RuntimeException(

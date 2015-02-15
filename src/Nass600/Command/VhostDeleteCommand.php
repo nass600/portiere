@@ -22,11 +22,11 @@ class VhostDeleteCommand extends Command
     {
         $this
             ->setName("nass600:vhost:delete")
-            ->setDescription("Deletes an vhost from the webserver")
+            ->setDescription("Deletes an vhost from the web server")
             ->addArgument(
-                'server-name',
+                'serverName',
                 InputArgument::REQUIRED,
-                'Which is the server name?'
+                'Server name of the virtual host'
             );
 
     }
@@ -38,7 +38,7 @@ class VhostDeleteCommand extends Command
         $dialog = $this->getHelper('dialog');
 
         // Server name
-        $config['serverName'] = $input->getArgument('server-name');
+        $config['serverName'] = $input->getArgument('serverName');
 
         $builder = new NginxBuilder($config);
 
