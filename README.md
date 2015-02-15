@@ -66,21 +66,21 @@ vhost-create dev.example.com /home/vagrant/sites/project/web
 
 ````
 
-*Parameters*
+__Parameters__
 
 | parameter     | description                                         |
 | ------------- | --------------------------------------------------- |
 | server-name   | The server name of the virtual host                 |
 | document-root | The directory holding the front controller php file |
 
-*Options*
+__Options__
 
-| option                    | default                    | description                    |
-| ------------------------- | -------------------------- | ------------------------------ |
-| __--vhost-filename, -vf__ | {{server-name}}            | The virtual host filename      |
-| __--error-logifle, -el__  | {{server-name}}.error.log  | The error log filename         |
-| __--access-logifle, -el__ | {{server-name}}.access.log | The access log filename        |
-| __--env, -e__             | dev                        | The environment of the project |
+| option                | default                    | description                    |
+| --------------------- | -------------------------- | ------------------------------ |
+| --vhost-filename, -vf | {{server-name}}            | The virtual host filename      |
+| --error-logifle, -el  | {{server-name}}.error.log  | The error log filename         |
+| --access-logifle, -el | {{server-name}}.access.log | The access log filename        |
+| --env, -e             | dev                        | The environment of the project |
 
 
 ### vhost-delete ###
@@ -93,7 +93,7 @@ vhost-create dev.example.com
 
 ````
 
-*Parameters*
+__Parameters__
 
 | parameter      | description               |
 | -------------- | ------------------------- |
