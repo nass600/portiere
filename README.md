@@ -68,9 +68,9 @@ vhost-create dev.example.com /home/vagrant/sites/project/web
 
 ````
 
-__Parameters__
+__Arguments__
 
-| parameter     | description                                         |
+| argument      | description                                         |
 | ------------- | --------------------------------------------------- |
 | server-name   | The server name of the virtual host                 |
 | document-root | The directory holding the front controller php file |
@@ -95,9 +95,9 @@ vhost-create dev.example.com
 
 ````
 
-__Parameters__
+__Arguments__
 
-| parameter      | description               |
+| argument       | description               |
 | -------------- | ------------------------- |
 | vhost-filename | The virtual host filename |
 
@@ -106,6 +106,7 @@ __Parameters__
 
 + Support more web servers
 + Improve tests
++ Vhost-list command
 
 ## License ##
 

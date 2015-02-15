@@ -35,16 +35,10 @@ class VhostDeleteCommand extends Command
     {
         $config = [];
 
-        $question = $this->getHelper('question');
         $dialog = $this->getHelper('dialog');
 
         // Server name
         $config['serverName'] = $input->getArgument('server-name');
-        if (null === $config['serverName']) {
-            $serverNameQuestion = new Question('<info>Which is the server name?</info> ');
-
-            $config['serverName'] = $question->ask($input, $output, $serverNameQuestion);
-        }
 
         $builder = new NginxBuilder($config);
 

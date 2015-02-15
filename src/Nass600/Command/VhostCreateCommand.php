@@ -69,32 +69,19 @@ class VhostCreateCommand extends Command
 
         // Server name
         $config['serverName'] = $input->getArgument('server-name');
-        if (null === $config['serverName']) {
-            $serverNameQuestion = new Question('<info>Which is the server name?</info> ');
-
-            $config['serverName'] = $question->ask($input, $output, $serverNameQuestion);
-        }
 
         // Document root
         $config['documentRoot'] = $input->getArgument('document-root');
-        if (null === $config['documentRoot']) {
-            $documentRootQuestion = new Question('<info>Where is the project stored?</info> ');
 
-            $documentRootQuestion->setValidator(function ($answer) {
-                if (!file_exists($answer)) {
-                    throw new \RuntimeException(
-                        'The path you inserted does not exist'
-                    );
-                }
-                if (!is_dir($answer)) {
-                    throw new \RuntimeException(
-                        'The path you inserted is not a directory'
-                    );
-                }
-                return $answer;
-            });
-
-            $config['documentRoot'] = $question->ask($input, $output, $documentRootQuestion);
+        if (!file_exists($config['documentRoot'])) {
+            throw new \RuntimeException(
+                'The document root you inserted does not exist'
+            );
+        }
+        if (!is_dir($config['documentRoot'])) {
+            throw new \RuntimeException(
+                'The document root you inserted is not a directory'
+            );
         }
 
         // Vhost filename
