@@ -4,6 +4,7 @@ namespace Nass600\Command;
 
 use Nass600\Builder\NginxBuilder;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,22 +23,14 @@ class VhostCreateCommand extends Command
         $this
             ->setName("nass600:vhost:create")
             ->setDescription("Creates an vhost for this project")
-            ->addOption(
-                'server',
-                's',
-                InputOption::VALUE_OPTIONAL,
-                'Which server are you using?'
-            )
-            ->addOption(
+            ->addArgument(
                 'server-name',
-                'sn',
-                InputOption::VALUE_OPTIONAL,
+                InputArgument::REQUIRED,
                 'Which is the server name?'
             )
-            ->addOption(
+            ->addArgument(
                 'document-root',
-                'dr',
-                InputOption::VALUE_OPTIONAL,
+                InputArgument::REQUIRED,
                 'Where is the project stored?'
             )
             ->addOption(
@@ -74,21 +67,8 @@ class VhostCreateCommand extends Command
         $question = $this->getHelper('question');
         $dialog = $this->getHelper('dialog');
 
-        // Httpd server
-        $config['server'] = $input->getOption('server');
-        if (null === $config['server']) {
-            $serverQuestion = new ChoiceQuestion(
-                '<info>Which server are you using? <comment>(default: nginx)</comment></info> ',
-                array('nginx', 'apache'),
-                0
-            );
-            $serverQuestion->setErrorMessage('Web server %s not supported.');
-
-            $config['server'] = $question->ask($input, $output, $serverQuestion);
-        }
-
         // Server name
-        $config['serverName'] = $input->getOption('server-name');
+        $config['serverName'] = $input->getArgument('server-name');
         if (null === $config['serverName']) {
             $serverNameQuestion = new Question('<info>Which is the server name?</info> ');
 
@@ -96,7 +76,7 @@ class VhostCreateCommand extends Command
         }
 
         // Document root
-        $config['documentRoot'] = $input->getOption('document-root');
+        $config['documentRoot'] = $input->getArgument('document-root');
         if (null === $config['documentRoot']) {
             $documentRootQuestion = new Question('<info>Where is the project stored?</info> ');
 
