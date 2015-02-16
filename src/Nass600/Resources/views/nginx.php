@@ -1,7 +1,7 @@
 server {
-    server_name <?php echo $serverName ?>;
-    root <?php echo $documentRoot ?>;
-    <?php $frontController = ($env == "prod") ? "app" : "app_" . $env ?>
+    server_name <?php echo $vhost->getServerName() ?>;
+    root <?php echo $vhost->getDocumentRoot() ?>;
+    <?php $frontController = ($vhost->getEnv() == "prod") ? "app" : "app_" . $vhost->getEnv() ?>
 
     location / {
         try_files $uri /<?php echo $frontController ?>.php$is_args$args;
@@ -13,11 +13,11 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param HTTPS off;
-        <?php if ($env === "prod") : ?>
+        <?php if ($vhost->getEnv() === "prod") : ?>
             internal;
         <?php endif ?>
     }
 
-    error_log <?php echo $logsDir . $errorLogfile ?>;
-    access_log <?php echo $logsDir . $accessLogfile ?>;
+    error_log <?php echo $server['logsDir'] . $vhost->getErrorLogFilename() ?>;
+    access_log <?php echo $server['logsDir'] . $vhost->getAccessLogFilename() ?>;
 }

@@ -60,7 +60,12 @@ You are ready to go by running from the root of your project the commands `bin/v
 
 ### vhost-create ###
 
-This command will create and enable a virtual host. After the creation the web server is restarted.
+This command will:
+
+1. Create a virtual host file named `serverName` or `vhost-filename` if set
+2. Create an error log file named `vhost-filename.error.log` and an access log file named `vhost-filename.access.log` in the web server default logs directory
+3. Enable the virtual host
+4. Restart the web server
 
 ````bash
 
@@ -72,26 +77,29 @@ __Arguments__
 
 | argument      | description                                         |
 | ------------- | --------------------------------------------------- |
-| server-name   | The server name of the virtual host                 |
-| document-root | The directory holding the front controller php file |
+| serverName    | The server name of the virtual host                 |
+| documentRoot  | The directory holding the front controller php file |
 
 __Options__
 
-| option                | default                    | description                    |
-| --------------------- | -------------------------- | ------------------------------ |
-| --vhost-filename, -vf | {{server-name}}            | The virtual host filename      |
-| --error-logifle, -el  | {{server-name}}.error.log  | The error log filename         |
-| --access-logifle, -el | {{server-name}}.access.log | The access log filename        |
-| --env, -e             | dev                        | The environment of the project |
+| option                | default                        | description                    |
+| --------------------- | ------------------------------ | ------------------------------ |
+| --vhost-filename, -vf | {{serverName}}                 | The virtual host filename      |
+| --env, -e             | dev                            | The environment of the project |
 
 
 ### vhost-delete ###
 
-This command will remove and disable a virtual host. After the deletion the web server is restarted
+This command will:
+
+1. Remove the virtual host file named `vhostFilename`
+2. Remove both access and error log files from the web server default logs directory
+3. Disable the virtual host
+4. Restart the web server
 
 ````bash
 
-vhost-create dev.example.com
+vhost-delete dev.example.com
 
 ````
 
@@ -99,7 +107,7 @@ __Arguments__
 
 | argument       | description               |
 | -------------- | ------------------------- |
-| vhost-filename | The virtual host filename |
+| vhostFilename  | The virtual host filename |
 
 
 ## TODO ##

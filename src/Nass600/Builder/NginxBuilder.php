@@ -16,11 +16,6 @@ class NginxBuilder extends Builder
         'hostsFilePath'      => '/etc/hosts'
     ];
 
-    public function __construct($config)
-    {
-        parent::__construct(array_merge($this->config, $config));
-    }
-
     /**
      * @return array
      */
@@ -34,38 +29,64 @@ class NginxBuilder extends Builder
      */
     public function getTemplate()
     {
-        return $this->templating->render(self::TEMPLATE_FILE, $this->config);
+        return $this->templating->render(
+            self::TEMPLATE_FILE, [
+                'server' => $this->config,
+                'vhost'  => $this->vhost
+            ]
+        );
+    }
+
+    public function getVhostAvailablePath()
+    {
+        return "{$this->config['sitesAvailablePath']}{$this->vhost->getFilename()}";
+    }
+
+    public function getVhostEnabledPath()
+    {
+        return "{$this->config['sitesEnabledPath']}{$this->vhost->getFilename()}";
+    }
+
+    public function getErrorLogPath()
+    {
+        return "{$this->config['logsDir']}{$this->vhost->getErrorLogFilename()}";
+    }
+
+    public function getAccessLogPath()
+    {
+        return "{$this->config['logsDir']}{$this->vhost->getAccessLogFilename()}";
     }
 
     public function createVhost()
     {
         $template = $this->getTemplate();
-        $vhostPath = "{$this->config['sitesAvailablePath']}{$this->config['vhostFilename']}";
-        $vhostSymPath = "{$this->config['sitesEnabledPath']}{$this->config['vhostFilename']}";
 
-        $this->fs->dumpFile($vhostPath, $template);
-        $this->fs->symlink($vhostPath, $vhostSymPath);
+        $this->fs->dumpFile($this->getVhostAvailablePath(), $template);
+        $this->fs->symlink($this->getVhostAvailablePath(), $this->getVhostEnabledPath());
 
         return $this;
     }
 
     public function deleteVhost()
     {
-        $filesToDelete = [
-            $this->config['sitesAvailablePath'] . $this->config['serverName'],
-            $this->config['sitesEnabledPath'] . $this->config['serverName'],
-            $this->config['logsDir'] . $this->config['serverName'] . '.error',
-            $this->config['logsDir'] . $this->config['serverName'] . '.access'
-        ];
-
-        foreach ($filesToDelete as $file) {
+        foreach ($this->getGeneratedFiles() as $file) {
             $this->fs->remove($file);
         }
 
         return $this;
     }
 
-    public function restartService()
+    public function getGeneratedFiles()
+    {
+        return [
+            $this->getVhostAvailablePath(),
+            $this->getVhostEnabledPath(),
+            $this->getErrorLogPath(),
+            $this->getAccessLogPath()
+        ];
+    }
+
+    public function restartServer()
     {
         shell_exec("service nginx restart");
     }

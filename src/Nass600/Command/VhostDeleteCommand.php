@@ -3,6 +3,7 @@
 namespace Nass600\Command;
 
 use Nass600\Builder\NginxBuilder;
+use Nass600\Builder\Vhost;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,54 +25,41 @@ class VhostDeleteCommand extends Command
             ->setName("nass600:vhost:delete")
             ->setDescription("Deletes an vhost from the web server")
             ->addArgument(
-                'serverName',
+                'vhostFilename',
                 InputArgument::REQUIRED,
-                'Server name of the virtual host'
+                'Vhost filename'
             );
 
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = [];
-
         $dialog = $this->getHelper('dialog');
 
-        // Server name
-        $config['serverName'] = $input->getArgument('serverName');
+        $vhost = new Vhost($input->getArgument('vhostFilename'));
 
-        $builder = new NginxBuilder($config);
+        $builder = new NginxBuilder($vhost);
 
-        $config = $builder->getConfig();
+        $output->writeln("\nThe following files are going to be <error>deleted</error>:\n");
 
-        $filesToDelete = [
-            $config['sitesAvailablePath'] . $config['serverName'],
-            $config['sitesEnabledPath'] . $config['serverName'],
-            $config['logsDir'] . $config['serverName'] . '.error',
-            $config['logsDir'] . $config['serverName'] . '.access'
-        ];
-
-        // Dumping a preview
-        $output->writeln("\n<info>We are going to delete this files:</info>");
-
-        foreach($filesToDelete as $file) {
-            $output->writeln("<comment>$file</comment>");
+        foreach($builder->getGeneratedFiles() as $file) {
+            $output->writeln("<comment>{$file}</comment>");
         }
 
         // Confirm generation
         if (!$dialog->askConfirmation(
             $output,
-            "\n<question>Do you agree?</question> ",
-            false
+            "\n<question>Do you confirm the removal of the vhost?</question> ",
+            true
         )) {
             $output->writeln(
-                "<error>The vhost has not been deleted due to user interruption</error>"
+                "\n<error>Canceled!!</error> The vhost has not been deleted due to user interruption\n"
             );
             return;
         }
 
-        $builder->deleteVhost()->restartService();
+        $builder->deleteVhost()->restartServer();
 
-        $output->writeln("\nAwesome!! <info>Your vhost has been successfully deleted</info>");
+        $output->writeln("\n<info>Awesome!!</info> Your vhost has been successfully deleted\n");
     }
 }
