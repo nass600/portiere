@@ -110,7 +110,7 @@ __Arguments__
 | vhostFilename  | The virtual host filename |
 
 
-## TODO ##
+## Future work ##
 
 + Support more web servers
 + Improve tests
