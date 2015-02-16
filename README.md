@@ -29,7 +29,7 @@ Require the library globally by executing:
 
 ````bash
 
-composer global require nass600/vhost-builder *
+composer global require nass600/vhost-builder 0.2.0
 
 ````
 
@@ -49,7 +49,7 @@ Require the library by executing:
 
 ````bash
 
-composer require-dev nass600/vhost-builder *
+composer require-dev nass600/vhost-builder 0.2.0
 
 ````
 

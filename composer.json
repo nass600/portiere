@@ -2,7 +2,7 @@
     "name": "nass600/vhost-builder",
     "description": "Vhost builder command based on Console Component",
     "type": "library",
-    "keywords": ["symfony", "command", "vhost", "nginx", "apache"],
+    "keywords": ["symfony", "command", "vhost", "nginx", "apache", "virtual host"],
     "homepage": "http://github.com/nass600/vhost-builder",
     "license": "MIT",
     "authors": [
@@ -30,7 +30,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.x-dev"
+            "dev-master": "0.2.x-dev"
         }
     }
 }
