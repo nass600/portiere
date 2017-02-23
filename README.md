@@ -1,7 +1,6 @@
 # Vhost Builder
 
-Symfony2 Console command to handle virtual hosts creation and deletion for a Symfony project in a Unix machine.
-
+Symfony Console command to handle virtual hosts for a Symfony project in a Unix machine.
 
 [![Build Status](https://api.travis-ci.org/nass600/vhost-builder.svg?branch=master)](https://travis-ci.org/nass600/vhost-builder)
 [![Latest Stable Version](https://poser.pugx.org/nass600/vhost-builder/v/stable.png)](https://packagist.org/packages/nass600/vhost-builder)
