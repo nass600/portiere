@@ -72,10 +72,10 @@ __Arguments__
 
 __Options__
 
-| option                | default        | description                               |
-| --------------------- | -------------- | ----------------------------------------- |
-| --vhost-filename, -vf | {{serverName}} | The virtual host filename                 |
-| --dev                 |                | Add development environment to vhost file |
+| option                | default        | description                                     |
+| --------------------- | -------------- | ----------------------------------------------- |
+| --vhost-filename, -vf | {{serverName}} | The virtual host filename                       |
+| --no-dev              |                | Don't add development environment to vhost file |
 
 
 ### vhost-delete
