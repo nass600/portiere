@@ -1,17 +1,17 @@
 <?php
 
-namespace Nass600\Command\Tests;
+namespace VhostBuilder\Command;
 
-use Nass600\Command\VhostDeleteCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class VhostDeleteCommandTest
  *
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
-class VhostDeleteCommandTest extends \PHPUnit_Framework_TestCase
+class VhostDeleteCommandTest extends TestCase
 {
     protected $app;
 
@@ -26,10 +26,10 @@ class VhostDeleteCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotEnoughArguments()
     {
-        $command = $this->app->find('nass600:vhost:delete');
+        $command = $this->app->find('vhost:delete');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
-            'command'      => $command->getName()
+            'command' => $command->getName()
         ));
     }
 }

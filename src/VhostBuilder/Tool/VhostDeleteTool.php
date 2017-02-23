@@ -1,8 +1,8 @@
 <?php
 
-namespace Nass600\Tool;
+namespace VhostBuilder\Tool;
 
-use Nass600\Command\VhostDeleteCommand;
+use VhostBuilder\Command\VhostDeleteCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -18,7 +18,7 @@ class VhostDeleteTool extends Application
      */
     protected function getCommandName(InputInterface $input)
     {
-        return 'nass600:vhost:delete';
+        return 'vhost:delete';
     }
 
     /**

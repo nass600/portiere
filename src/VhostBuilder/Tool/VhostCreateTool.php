@@ -1,8 +1,8 @@
 <?php
 
-namespace Nass600\Tool;
+namespace VhostBuilder\Tool;
 
-use Nass600\Command\VhostCreateCommand;
+use VhostBuilder\Command\VhostCreateCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -18,7 +18,7 @@ class VhostCreateTool extends Application
      */
     protected function getCommandName(InputInterface $input)
     {
-        return 'nass600:vhost:create';
+        return 'vhost:create';
     }
 
     /**

@@ -1,15 +1,16 @@
 <?php
 
-namespace Nass600\Command;
+namespace VhostBuilder\Command;
 
-use Nass600\Builder\NginxBuilder;
-use Nass600\Builder\Vhost;
+use VhostBuilder\Builder\NginxBuilder;
+use VhostBuilder\Builder\Vhost;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
  * Class VhostCreateCommand
@@ -21,8 +22,8 @@ class VhostCreateCommand extends Command
     protected function configure()
     {
         $this
-            ->setName("nass600:vhost:create")
-            ->setDescription("Creates an vhost for this project")
+            ->setName("vhost:create")
+            ->setDescription("Creates a vhost for this project")
             ->addArgument(
                 'serverName',
                 InputArgument::REQUIRED,
@@ -40,20 +41,17 @@ class VhostCreateCommand extends Command
                 'Filename of the virtual host'
             )
             ->addOption(
-                'env',
-                'e',
-                InputOption::VALUE_REQUIRED,
-                'Symfony2 environment to activate',
-                'dev'
+                'no-dev',
+                'no-dev',
+                InputOption::VALUE_NONE,
+                'Don\'t add Symfony2 dev front controller'
             );
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dialog = $this->getHelper('dialog');
-        $style = new OutputFormatterStyle('blue');
-        $output->getFormatter()->setStyle('sample', $style);
+        $questionHelper = $this->getHelper('question');
+        $output->getFormatter()->setStyle('sample', new OutputFormatterStyle('yellow'));
 
         $vhostFilename = $input->getOption('vhost-filename');
 
@@ -62,28 +60,27 @@ class VhostCreateCommand extends Command
         }
 
         $vhost = new Vhost($vhostFilename);
-        $vhost->setServerName($input->getArgument('serverName'))
+        $vhost
+            ->setServerName($input->getArgument('serverName'))
             ->setDocumentRoot($input->getArgument('documentRoot'))
-            ->setEnv($input->getOption('env'));
+            ->setEnv($input->getOption('no-dev') ? Vhost::ENV_PROD : Vhost::ENV_DEV);
 
         $builder = new NginxBuilder($vhost);
 
         // Dumping a preview
-        $output->writeln(
-            "\nThe vhost file <info>{$builder->getVhostAvailablePath()}</info> will look like:\n"
-        );
+        $output->writeln("\nThe vhost file <info>{$builder->getVhostAvailablePath()}</info> will look like:\n");
 
         $output->writeln("<sample>{$builder->getTemplate()}</sample>");
 
         // Confirm generation
-        if (!$dialog->askConfirmation(
-            $output,
-            "\n<question>Do you confirm the vhost generation?</question> ",
-            true
-        )) {
-            $output->writeln(
-                "\n<error>Canceled!!</error> The vhost has not been created due to user interruption\n"
-            );
+        $question = new ConfirmationQuestion(
+            "\n<question>Do you confirm the vhost generation? (y/n)</question> ",
+            false
+        );
+
+        if (!$questionHelper->ask($input, $output, $question)) {
+            $output->writeln("\n<error>Canceled!!</error> The vhost has not been created due to user interruption\n");
+
             return;
         }
 

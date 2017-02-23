@@ -1,17 +1,17 @@
 <?php
 
-namespace Nass600\Command\Tests;
+namespace VhostBuilder\Command;
 
-use Nass600\Command\VhostCreateCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class VhostCreateCommandTest
  *
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
-class VhostCreateCommandTest extends \PHPUnit_Framework_TestCase
+class VhostCreateCommandTest extends TestCase
 {
     protected $app;
 
@@ -26,7 +26,7 @@ class VhostCreateCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotEnoughArguments()
     {
-        $command = $this->app->find('nass600:vhost:create');
+        $command = $this->app->find('vhost:create');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'      => $command->getName()
@@ -38,7 +38,7 @@ class VhostCreateCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingServerNameArgument()
     {
-        $command = $this->app->find('nass600:vhost:create');
+        $command = $this->app->find('vhost:create');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'      => $command->getName(),
@@ -51,7 +51,7 @@ class VhostCreateCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingDocumentRootArgument()
     {
-        $command = $this->app->find('nass600:vhost:create');
+        $command = $this->app->find('vhost:create');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'      => $command->getName(),

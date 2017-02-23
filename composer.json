@@ -12,25 +12,26 @@
         }
     ],
     "require": {
-        "symfony/console": "~2.6",
-        "symfony/templating": "~2.6",
-        "symfony/filesystem": "~2.6"
+        "symfony/console": "3.*",
+        "symfony/templating": "3.*",
+        "symfony/filesystem": "3.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
     },
     "autoload": {
-        "psr-4": {
-            "Nass600\\": "src/Nass600"
-        }
+        "psr-4": { "VhostBuilder\\": "src/VhostBuilder" }
+    },
+    "autoload-dev": {
+        "psr-4": {"VhostBuilder\\": "tests/VhostBuilder"}
     },
     "bin": [
-        "bin/vhost-create",
-        "bin/vhost-delete"
+        "vhost-create",
+        "vhost-delete"
     ],
-    "config": {
-        "bin-dir": "bin"
-    },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.2.x-dev"
+            "dev-master": "0.3.x-dev"
         }
     }
 }

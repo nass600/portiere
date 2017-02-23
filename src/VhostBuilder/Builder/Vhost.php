@@ -1,15 +1,25 @@
 <?php
 
-namespace Nass600\Builder;
+namespace VhostBuilder\Builder;
 
 /**
  * Class Vhost
  *
- * @package Nass600\Builder
+ * @package VhostBuilder\Builder
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class Vhost
 {
+    /**
+     * @var string Development environment
+     */
+    const ENV_DEV = 'dev';
+
+    /**
+     * @var string Production environment
+     */
+    const ENV_PROD = 'prod';
+
     /**
      * @var string
      */
@@ -119,43 +129,11 @@ class Vhost
     }
 
     /**
-     * @param string $errorLogFilename
-     *
-     * @return Vhost
-     */
-    public function setErrorLogFilename($errorLogFilename)
-    {
-        if (null === $errorLogFilename) {
-            return $this;
-        }
-
-        $this->errorLogFilename = $errorLogFilename;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getAccessLogFilename()
     {
         return $this->accessLogFilename;
-    }
-
-    /**
-     * @param string $accessLogFilename
-     *
-     * @return Vhost
-     */
-    public function setAccessLogFilename($accessLogFilename)
-    {
-        if (null === $accessLogFilename) {
-            return $this;
-        }
-
-        $this->accessLogFilename = $accessLogFilename;
-
-        return $this;
     }
 
     /**

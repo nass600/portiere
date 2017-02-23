@@ -1,6 +1,6 @@
 <?php
 
-namespace Nass600\Builder;
+namespace VhostBuilder\Builder;
 
 class NginxBuilder extends Builder
 {
@@ -11,9 +11,9 @@ class NginxBuilder extends Builder
      */
     protected $config = [
         'sitesAvailablePath' => '/etc/nginx/sites-available/',
-        'sitesEnabledPath'   => '/etc/nginx/sites-enabled/',
-        'logsDir'            => '/var/log/nginx/',
-        'hostsFilePath'      => '/etc/hosts'
+        'sitesEnabledPath' => '/etc/nginx/sites-enabled/',
+        'logsDir' => '/var/log/nginx/',
+        'hostsFilePath' => '/etc/hosts'
     ];
 
     /**
@@ -29,12 +29,10 @@ class NginxBuilder extends Builder
      */
     public function getTemplate()
     {
-        return $this->templating->render(
-            self::TEMPLATE_FILE, [
-                'server' => $this->config,
-                'vhost'  => $this->vhost
-            ]
-        );
+        return $this->templating->render(self::TEMPLATE_FILE, [
+            'server' => $this->config,
+            'vhost' => $this->vhost
+        ]);
     }
 
     public function getVhostAvailablePath()

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nass600\Builder;
+namespace VhostBuilder\Builder;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Templating\Loader\FilesystemLoader;
@@ -10,7 +10,7 @@ use Symfony\Component\Templating\TemplateNameParser;
 /**
  * Class Builder
  *
- * @package Nass600\Builder
+ * @package VhostBuilder\Builder
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 abstract class Builder
