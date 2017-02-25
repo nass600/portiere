@@ -3,10 +3,10 @@
 Symfony Console command to handle virtual hosts for a Symfony project in a Unix machine.
 
 [![Build Status](https://api.travis-ci.org/nass600/portiere.svg?branch=master)](https://travis-ci.org/nass600/portiere)
-[![Latest Stable Version](https://poser.pugx.org/nass600/portiere/v/stable.png)](https://packagist.org/packages/nass600/portiere)
-[![Total Downloads](https://poser.pugx.org/nass600/portiere/downloads.png)](https://packagist.org/packages/nass600/portiere)
-[![License](https://poser.pugx.org/nass600/portiere/license.svg)](https://packagist.org/packages/nass600/portiere)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/2d92548d-2c86-4677-87de-0ec33c1670bb/mini.png)](https://insight.sensiolabs.com/projects/2d92548d-2c86-4677-87de-0ec33c1670bb)
+[![Packagist](https://img.shields.io/packagist/v/nass600/portiere.svg)](https://packagist.org/packages/nass600/portiere)
+[![Packagist](https://img.shields.io/packagist/dt/nass600/portiere.svg)](https://packagist.org/packages/nass600/portiere)
+[![Packagist](https://img.shields.io/packagist/l/nass600/portiere.svg)](LICENSE)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f/mini.png)](https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f)
 
 ## Supported Web Servers
 
@@ -25,7 +25,7 @@ The installation is handled by composer and you can install it either globally o
 Require the library globally by executing:
 
 ````bash
-composer global require nass600/portiere 0.3.0
+composer global require nass600/portiere 0.4.0
 ````
 
 and add composer global package binaries to your PATH if you didn't yet:
@@ -41,7 +41,7 @@ You are ready to go by running wherever you want the commands `vhost-create`and 
 Require the library by executing:
 
 ````bash
-composer require-dev nass600/portiere 0.3.0
+composer require-dev nass600/portiere 0.4.0
 ````
 
 You are ready to go by running from the root of your project the commands `bin/vhost-create`and `bin/vhost-delete`

@@ -11,5 +11,5 @@ if (is_file($autoload = __DIR__ . '/vendor/autoload.php')) {
     exit(1);
 }
 
-$app = new Portiere('Portiere', '0.3.0');
+$app = new Portiere('Portiere', '0.4.0');
 $app->run();
