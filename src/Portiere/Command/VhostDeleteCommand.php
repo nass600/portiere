@@ -1,10 +1,10 @@
 <?php
 
-namespace VhostBuilder\Command;
+namespace Portiere\Command;
 
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use VhostBuilder\Builder\NginxBuilder;
-use VhostBuilder\Builder\Vhost;
+use Portiere\Builder\NginxBuilder;
+use Portiere\Vhost;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

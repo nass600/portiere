@@ -1,6 +1,6 @@
 <?php
 
-namespace VhostBuilder\Command;
+namespace Portiere\Command;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;

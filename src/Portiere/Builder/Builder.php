@@ -1,16 +1,17 @@
 <?php
 
-namespace VhostBuilder\Builder;
+namespace Portiere\Builder;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Templating\Loader\FilesystemLoader;
 use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\TemplateNameParser;
+use Portiere\Vhost;
 
 /**
  * Class Builder
  *
- * @package VhostBuilder\Builder
+ * @package Portiere\Builder
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 abstract class Builder

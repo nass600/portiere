@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+use Portiere\Portiere;
+
 if (is_file($autoload = __DIR__ . '/vendor/autoload.php')) {
     require $autoload;
 } elseif (is_file($autoload = __DIR__ . '/../../autoload.php')) {
@@ -9,5 +11,5 @@ if (is_file($autoload = __DIR__ . '/vendor/autoload.php')) {
     exit(1);
 }
 
-$app = new VhostBuilder\Tool\VhostDeleteTool('Vhost Builder', '0.3.0');
+$app = new Portiere('Portiere', '0.3.0');
 $app->run();

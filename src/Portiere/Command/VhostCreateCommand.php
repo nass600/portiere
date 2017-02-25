@@ -1,9 +1,9 @@
 <?php
 
-namespace VhostBuilder\Command;
+namespace Portiere\Command;
 
-use VhostBuilder\Builder\NginxBuilder;
-use VhostBuilder\Builder\Vhost;
+use Portiere\Builder\NginxBuilder;
+use Portiere\Vhost;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputArgument;

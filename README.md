@@ -1,11 +1,11 @@
-# Vhost Builder
+# Portiere
 
 Symfony Console command to handle virtual hosts for a Symfony project in a Unix machine.
 
-[![Build Status](https://api.travis-ci.org/nass600/vhost-builder.svg?branch=master)](https://travis-ci.org/nass600/vhost-builder)
-[![Latest Stable Version](https://poser.pugx.org/nass600/vhost-builder/v/stable.png)](https://packagist.org/packages/nass600/vhost-builder)
-[![Total Downloads](https://poser.pugx.org/nass600/vhost-builder/downloads.png)](https://packagist.org/packages/nass600/vhost-builder)
-[![License](https://poser.pugx.org/nass600/vhost-builder/license.svg)](https://packagist.org/packages/nass600/vhost-builder)
+[![Build Status](https://api.travis-ci.org/nass600/portiere.svg?branch=master)](https://travis-ci.org/nass600/portiere)
+[![Latest Stable Version](https://poser.pugx.org/nass600/portiere/v/stable.png)](https://packagist.org/packages/nass600/portiere)
+[![Total Downloads](https://poser.pugx.org/nass600/portiere/downloads.png)](https://packagist.org/packages/nass600/portiere)
+[![License](https://poser.pugx.org/nass600/portiere/license.svg)](https://packagist.org/packages/nass600/portiere)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/2d92548d-2c86-4677-87de-0ec33c1670bb/mini.png)](https://insight.sensiolabs.com/projects/2d92548d-2c86-4677-87de-0ec33c1670bb)
 
 ## Supported Web Servers
@@ -25,7 +25,7 @@ The installation is handled by composer and you can install it either globally o
 Require the library globally by executing:
 
 ````bash
-composer global require nass600/vhost-builder 0.3.0
+composer global require nass600/portiere 0.3.0
 ````
 
 and add composer global package binaries to your PATH if you didn't yet:
@@ -41,7 +41,7 @@ You are ready to go by running wherever you want the commands `vhost-create`and 
 Require the library by executing:
 
 ````bash
-composer require-dev nass600/vhost-builder 0.2.0
+composer require-dev nass600/portiere 0.3.0
 ````
 
 You are ready to go by running from the root of your project the commands `bin/vhost-create`and `bin/vhost-delete`
@@ -49,7 +49,17 @@ You are ready to go by running from the root of your project the commands `bin/v
 
 ## Usage
 
-### vhost-create
+**Note**: You probably need `sudo` permissions for executing this commands successfully
+
+### vhost:list
+
+Lists all the virtual hosts
+
+````bash
+portiere vhost:list
+````
+
+### vhost:create
 
 This command will:
 
@@ -59,7 +69,7 @@ This command will:
 4. Restart the web server
 
 ````bash
-vhost-create dev.example.com /home/vagrant/sites/project/web
+portiere vhost:create dev.example.com /home/user/sites/project/web
 ````
 
 __Arguments__
@@ -77,7 +87,7 @@ __Options__
 | --no-dev              |                | Don't add development environment to vhost file |
 
 
-### vhost-delete
+### vhost:delete
 
 This command will:
 
@@ -87,7 +97,7 @@ This command will:
 4. Restart the web server
 
 ````bash
-vhost-delete dev.example.com
+portiere vhost:delete dev.example.com
 ````
 
 __Arguments__
@@ -101,7 +111,6 @@ __Arguments__
 
 + Support more web servers
 + Improve tests
-+ `vhost-list` command
 
 ## License
 

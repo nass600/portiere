@@ -1,6 +1,6 @@
 <?php
 
-namespace VhostBuilder\Builder;
+namespace Portiere\Builder;
 
 class NginxBuilder extends Builder
 {

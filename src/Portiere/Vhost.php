@@ -1,11 +1,11 @@
 <?php
 
-namespace VhostBuilder\Builder;
+namespace Portiere;
 
 /**
  * Class Vhost
  *
- * @package VhostBuilder\Builder
+ * @package Portiere\Builder
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class Vhost
