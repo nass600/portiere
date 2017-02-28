@@ -2,7 +2,7 @@
 
 namespace Portiere\Command;
 
-use Portiere\Builder\NginxBuilder;
+use Portiere\WebServer\NginxManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,9 +27,9 @@ class VhostListCommand extends Command
         $table = new Table($output);
         $table->setHeaders(['Vhost Name', 'Enabled']);
 
-        $builder = new NginxBuilder();
+        $manager = new NginxManager();
 
-        $table->setRows($builder->listVhost());
+        $table->setRows($manager->listVhosts());
 
         $table->render();
     }

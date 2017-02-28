@@ -2,9 +2,9 @@
 
 namespace Portiere\Command;
 
+use Portiere\WebServer\Vhost;
+use Portiere\WebServer\NginxManager;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Portiere\Builder\NginxBuilder;
-use Portiere\Vhost;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,11 +35,11 @@ class VhostDeleteCommand extends Command
 
         $vhost = new Vhost($input->getArgument('vhostFilename'));
 
-        $builder = new NginxBuilder($vhost);
+        $manager = new NginxManager($vhost);
 
         $output->writeln("\nThe following files are going to be <error>deleted</error>:\n");
 
-        foreach ($builder->getGeneratedFiles() as $file) {
+        foreach ($manager->getGeneratedFiles() as $file) {
             $output->writeln("<comment>{$file}</comment>");
         }
 
@@ -56,7 +56,7 @@ class VhostDeleteCommand extends Command
             return;
         }
 
-        $builder->deleteVhost()->restartServer();
+        $manager->deleteVhost()->restartServer();
 
         $output->writeln("\n<info>Awesome!!</info> Your vhost has been successfully deleted\n");
     }

@@ -1,15 +1,15 @@
 <?php
 
-namespace Portiere\Builder;
+namespace Portiere\WebServer;
 
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class NginxBuilder
+ * Class NginxManager
  *
- * @package Portiere\Builder
+ * @package Portiere\WebServer
  */
-class NginxBuilder extends Builder
+class NginxManager extends Manager
 {
     const TEMPLATE_FILE = 'nginx.php';
 
@@ -19,28 +19,23 @@ class NginxBuilder extends Builder
     protected $config = [
         'sitesAvailablePath' => '/etc/nginx/sites-available/',
         'sitesEnabledPath' => '/etc/nginx/sites-enabled/',
-        'logsDir' => '/var/log/nginx/',
-        'hostsFilePath' => '/etc/hosts'
+        'logsDir' => '/var/log/nginx/'
     ];
 
+    /**
+     * @return string
+     */
     public function getVhostAvailablePath()
     {
         return "{$this->config['sitesAvailablePath']}{$this->vhost->getFilename()}";
     }
 
+    /**
+     * @return string
+     */
     public function getVhostEnabledPath()
     {
         return "{$this->config['sitesEnabledPath']}{$this->vhost->getFilename()}";
-    }
-
-    public function getErrorLogPath()
-    {
-        return "{$this->config['logsDir']}{$this->vhost->getErrorLogFilename()}";
-    }
-
-    public function getAccessLogPath()
-    {
-        return "{$this->config['logsDir']}{$this->vhost->getAccessLogFilename()}";
     }
 
     /**
@@ -64,6 +59,16 @@ class NginxBuilder extends Builder
         $template = $this->getTemplate();
 
         $this->fs->dumpFile($this->getVhostAvailablePath(), $template);
+        $this->enableVhost();
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function enableVhost()
+    {
         $this->fs->symlink($this->getVhostAvailablePath(), $this->getVhostEnabledPath());
 
         return $this;
@@ -84,7 +89,7 @@ class NginxBuilder extends Builder
     /**
      * {@inheritDoc}
      */
-    public function listVhost()
+    public function listVhosts()
     {
         $finder = new Finder();
         $enabled = $vhosts = [];
@@ -108,8 +113,8 @@ class NginxBuilder extends Builder
         return [
             $this->getVhostAvailablePath(),
             $this->getVhostEnabledPath(),
-            $this->getErrorLogPath(),
-            $this->getAccessLogPath()
+            "{$this->config['logsDir']}{$this->vhost->getErrorLogFilename()}",
+            "{$this->config['logsDir']}{$this->vhost->getAccessLogFilename()}"
         ];
     }
 

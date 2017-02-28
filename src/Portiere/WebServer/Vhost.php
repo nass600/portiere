@@ -1,11 +1,11 @@
 <?php
 
-namespace Portiere;
+namespace Portiere\WebServer;
 
 /**
  * Class Vhost
  *
- * @package Portiere\Builder
+ * @package Portiere\WebServer
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class Vhost

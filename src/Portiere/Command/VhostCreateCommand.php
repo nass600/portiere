@@ -2,8 +2,8 @@
 
 namespace Portiere\Command;
 
-use Portiere\Builder\NginxBuilder;
-use Portiere\Vhost;
+use Portiere\WebServer\Vhost;
+use Portiere\WebServer\NginxManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputArgument;
@@ -65,12 +65,12 @@ class VhostCreateCommand extends Command
             ->setDocumentRoot($input->getArgument('documentRoot'))
             ->setEnv($input->getOption('no-dev') ? Vhost::ENV_PROD : Vhost::ENV_DEV);
 
-        $builder = new NginxBuilder($vhost);
+        $manager = new NginxManager($vhost);
 
         // Dumping a preview
-        $output->writeln("\nThe vhost file <info>{$builder->getVhostAvailablePath()}</info> will look like:\n");
+        $output->writeln("\nThe vhost file <info>{$manager->getVhostAvailablePath()}</info> will look like:\n");
 
-        $output->writeln("<sample>{$builder->getTemplate()}</sample>");
+        $output->writeln("<sample>{$manager->getTemplate()}</sample>");
 
         // Confirm generation
         $question = new ConfirmationQuestion(
@@ -84,7 +84,7 @@ class VhostCreateCommand extends Command
             return;
         }
 
-        $builder->createVhost()->restartServer();
+        $manager->createVhost()->restartServer();
 
         $output->writeln("\n<info>Awesome!!</info> Your vhost has been successfully created and enabled");
 

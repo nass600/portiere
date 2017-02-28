@@ -1,20 +1,19 @@
 <?php
 
-namespace Portiere\Builder;
+namespace Portiere\WebServer;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Templating\Loader\FilesystemLoader;
 use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\TemplateNameParser;
-use Portiere\Vhost;
 
 /**
- * Class Builder
+ * Class Manager
  *
- * @package Portiere\Builder
+ * @package Portiere\WebServer
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
-abstract class Builder
+abstract class Manager
 {
     /**
      * @var array
@@ -56,6 +55,13 @@ abstract class Builder
     abstract public function createVhost();
 
     /**
+     * Enables the virtual host
+     *
+     * @return $this
+     */
+    abstract protected function enableVhost();
+
+    /**
      * Deletes all virtual host associated files
      *
      * @return $this
@@ -67,7 +73,7 @@ abstract class Builder
      *
      * @return array [vhost name, enabled]
      */
-    abstract public function listVhost();
+    abstract public function listVhosts();
 
     /**
      * Gets the generated files for a virtual host
