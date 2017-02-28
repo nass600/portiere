@@ -2,6 +2,13 @@
 
 namespace Portiere\Builder;
 
+use Symfony\Component\Finder\Finder;
+
+/**
+ * Class NginxBuilder
+ *
+ * @package Portiere\Builder
+ */
 class NginxBuilder extends Builder
 {
     const TEMPLATE_FILE = 'nginx.php';
@@ -15,25 +22,6 @@ class NginxBuilder extends Builder
         'logsDir' => '/var/log/nginx/',
         'hostsFilePath' => '/etc/hosts'
     ];
-
-    /**
-     * @return array
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
-     * @return false|string
-     */
-    public function getTemplate()
-    {
-        return $this->templating->render(self::TEMPLATE_FILE, [
-            'server' => $this->config,
-            'vhost' => $this->vhost
-        ]);
-    }
 
     public function getVhostAvailablePath()
     {
@@ -55,6 +43,22 @@ class NginxBuilder extends Builder
         return "{$this->config['logsDir']}{$this->vhost->getAccessLogFilename()}";
     }
 
+    /**
+     * Gets template for this web server
+     *
+     * @return false|string
+     */
+    public function getTemplate()
+    {
+        return $this->templating->render(self::TEMPLATE_FILE, [
+            'server' => $this->config,
+            'vhost' => $this->vhost
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function createVhost()
     {
         $template = $this->getTemplate();
@@ -65,6 +69,9 @@ class NginxBuilder extends Builder
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function deleteVhost()
     {
         foreach ($this->getGeneratedFiles() as $file) {
@@ -74,6 +81,28 @@ class NginxBuilder extends Builder
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function listVhost()
+    {
+        $finder = new Finder();
+        $enabled = $vhosts = [];
+        foreach ($finder->files()->in($this->config['sitesEnabledPath']) as $file) {
+            $enabled[] = $file->getFilename();
+        }
+
+        $finder = new Finder();
+        foreach ($finder->files()->in($this->config['sitesAvailablePath']) as $file) {
+            $vhosts[] = [$file->getFilename(), in_array($file->getFilename(), $enabled)];
+        }
+
+        return $vhosts;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getGeneratedFiles()
     {
         return [
@@ -84,6 +113,9 @@ class NginxBuilder extends Builder
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function restartServer()
     {
         shell_exec("service nginx restart");

@@ -37,9 +37,9 @@ abstract class Builder
     protected $vhost;
 
     /**
-     * @param Vhost $vhost
+     * @param Vhost|null $vhost
      */
-    public function __construct(Vhost $vhost)
+    public function __construct(Vhost $vhost = null)
     {
         $this->vhost = $vhost;
         $this->fs = new Filesystem();
@@ -48,11 +48,38 @@ abstract class Builder
         $this->templating = new PhpEngine(new TemplateNameParser(), $loader);
     }
 
+    /**
+     * Creates the virtual host related files
+     *
+     * @return $this
+     */
     abstract public function createVhost();
 
+    /**
+     * Deletes all virtual host associated files
+     *
+     * @return $this
+     */
     abstract public function deleteVhost();
 
+    /**
+     * Lists current virtual hosts
+     *
+     * @return array [vhost name, enabled]
+     */
+    abstract public function listVhost();
+
+    /**
+     * Gets the generated files for a virtual host
+     *
+     * @return array
+     */
     abstract public function getGeneratedFiles();
 
+    /**
+     * Restarts web server
+     *
+     * @return $this
+     */
     abstract public function restartServer();
 }

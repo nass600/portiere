@@ -1,12 +1,22 @@
-# Portiere
+<h1 align="center">
+    <img src="docs/img/portiere.png" alt="Portiere - Virtual host builder" width="200" height="160">
+    <br>
+    Portiere
+    <br>
+    <br>
+</h1>
 
-Symfony Console command to handle virtual hosts for a Symfony project in a Unix machine.
-
+<p align="center">
 [![Build Status](https://api.travis-ci.org/nass600/portiere.svg?branch=master)](https://travis-ci.org/nass600/portiere)
 [![Packagist](https://img.shields.io/packagist/v/nass600/portiere.svg)](https://packagist.org/packages/nass600/portiere)
 [![Packagist](https://img.shields.io/packagist/dt/nass600/portiere.svg)](https://packagist.org/packages/nass600/portiere)
 [![Packagist](https://img.shields.io/packagist/l/nass600/portiere.svg)](LICENSE)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f/mini.png)](https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f)
+</p>
+
+<h4 align="center">
+    Symfony Console command to handle virtual hosts for a Symfony project in a Unix machine.
+</h4>
 
 ## Supported Web Servers
 
