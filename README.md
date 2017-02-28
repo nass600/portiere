@@ -7,11 +7,22 @@
 </h1>
 
 <p align="center">
-[![Build Status](https://api.travis-ci.org/nass600/portiere.svg?branch=master)](https://travis-ci.org/nass600/portiere)
-[![Packagist](https://img.shields.io/packagist/v/nass600/portiere.svg)](https://packagist.org/packages/nass600/portiere)
-[![Packagist](https://img.shields.io/packagist/dt/nass600/portiere.svg)](https://packagist.org/packages/nass600/portiere)
-[![Packagist](https://img.shields.io/packagist/l/nass600/portiere.svg)](LICENSE)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f/mini.png)](https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f)
+    <a href="https://travis-ci.org/nass600/portiere">
+        <img src="https://api.travis-ci.org/nass600/portiere.svg?branch=master" alt="Travis Build Status"/>
+    </a>
+    <a href="https://packagist.org/packages/nass600/portiere">
+        <img src="https://img.shields.io/packagist/v/nass600/portiere.svg" alt="Packagist Latest Version"/>
+    </a>
+    <a href="https://packagist.org/packages/nass600/portiere">
+        <img src="https://img.shields.io/packagist/dt/nass600/portiere.svg" alt="Packagist Download Counter"/>
+    </a>
+    <a href="LICENSE">
+        <img src="https://img.shields.io/packagist/l/nass600/portiere.svg" alt="License"/>
+    </a>
+    <a href="https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f">
+        <img src="https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f/mini.png" alt="SensioLabs Insight"/>
+    </a>
+
 </p>
 
 <h4 align="center">
