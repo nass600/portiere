@@ -24,8 +24,6 @@ class ManagerFactory
      */
     public static function create()
     {
-        // TODO: Use a WebServerResolver to find out the running web server
-
         $fs = new Filesystem();
         $loader = new FilesystemLoader(__DIR__.'/../Resources/views/%name%');
         $templating = new PhpEngine(new TemplateNameParser(), $loader);

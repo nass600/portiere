@@ -4,7 +4,6 @@ namespace Portiere\Command;
 
 use Portiere\WebServer\ManagerFactory;
 use Portiere\WebServer\Vhost;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,7 +39,6 @@ class VhostDeleteCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $questionHelper = $this->getHelper('question');
 
         $vhost = new Vhost($input->getArgument('vhostFilename'));
 
