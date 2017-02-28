@@ -7,10 +7,16 @@ use Symfony\Component\Finder\Finder;
 /**
  * Class NginxManager
  *
+ * Manager handling Nginx web server actions
+ *
  * @package Portiere\WebServer
+ * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class NginxManager extends Manager
 {
+    /**
+     * @var string Template filename
+     */
     const TEMPLATE_FILE = 'nginx.php';
 
     /**
@@ -23,67 +29,74 @@ class NginxManager extends Manager
     ];
 
     /**
+     * Gets the full path of the available vhost file
+     *
+     * @param VhostInterface $vhost
+     *
      * @return string
      */
-    public function getVhostAvailablePath()
+    public function getVhostAvailablePath(VhostInterface $vhost)
     {
-        return "{$this->config['sitesAvailablePath']}{$this->vhost->getFilename()}";
+        return "{$this->config['sitesAvailablePath']}{$vhost->getFilename()}";
     }
 
     /**
+     * Gets the full path of the enabled vhost file
+     *
+     * @param VhostInterface $vhost
+     *
      * @return string
      */
-    public function getVhostEnabledPath()
+    public function getVhostEnabledPath(VhostInterface $vhost)
     {
-        return "{$this->config['sitesEnabledPath']}{$this->vhost->getFilename()}";
+        return "{$this->config['sitesEnabledPath']}{$vhost->getFilename()}";
     }
 
     /**
      * Gets template for this web server
      *
+     * @param VhostInterface $vhost
+     *
      * @return false|string
      */
-    public function getTemplate()
+    public function getTemplate(VhostInterface $vhost)
     {
         return $this->templating->render(self::TEMPLATE_FILE, [
             'server' => $this->config,
-            'vhost' => $this->vhost
+            'vhost' => $vhost
         ]);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function createVhost()
+    public function createVhost(VhostInterface $vhost)
     {
-        $template = $this->getTemplate();
+        $template = $this->getTemplate($vhost);
 
-        $this->fs->dumpFile($this->getVhostAvailablePath(), $template);
-        $this->enableVhost();
-
-        return $this;
+        $this->fs->dumpFile($this->getVhostAvailablePath($vhost), $template);
+        $this->enableVhost($vhost);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function enableVhost()
+    protected function enableVhost(VhostInterface $vhost)
     {
-        $this->fs->symlink($this->getVhostAvailablePath(), $this->getVhostEnabledPath());
-
-        return $this;
+        $this->fs->symlink(
+            $this->getVhostAvailablePath($vhost),
+            "{$this->config['sitesEnabledPath']}{$vhost->getFilename()}"
+        );
     }
 
     /**
      * {@inheritDoc}
      */
-    public function deleteVhost()
+    public function deleteVhost(VhostInterface $vhost)
     {
-        foreach ($this->getGeneratedFiles() as $file) {
+        foreach ($this->getGeneratedFiles($vhost) as $file) {
             $this->fs->remove($file);
         }
-
-        return $this;
     }
 
     /**
@@ -108,13 +121,13 @@ class NginxManager extends Manager
     /**
      * {@inheritDoc}
      */
-    public function getGeneratedFiles()
+    public function getGeneratedFiles(VhostInterface $vhost)
     {
         return [
-            $this->getVhostAvailablePath(),
-            $this->getVhostEnabledPath(),
-            "{$this->config['logsDir']}{$this->vhost->getErrorLogFilename()}",
-            "{$this->config['logsDir']}{$this->vhost->getAccessLogFilename()}"
+            $this->getVhostAvailablePath($vhost),
+            $this->getVhostEnabledPath($vhost),
+            "{$this->config['logsDir']}{$vhost->getErrorLogFilename()}",
+            "{$this->config['logsDir']}{$vhost->getAccessLogFilename()}"
         ];
     }
 

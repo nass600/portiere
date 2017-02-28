@@ -2,21 +2,26 @@
 
 namespace Portiere\Command;
 
+use Portiere\WebServer\ManagerFactory;
 use Portiere\WebServer\Vhost;
-use Portiere\WebServer\NginxManager;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class VhostDeleteCommand
  *
+ * @package Portiere\Command
  * @author Ignacio Velazquez <ignaciovelazquez@mobail.es>
  */
 class VhostDeleteCommand extends Command
 {
+    /**
+     * {@inheritDoc}
+     */
     protected function configure()
     {
         $this
@@ -29,35 +34,31 @@ class VhostDeleteCommand extends Command
             );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $io = new SymfonyStyle($input, $output);
         $questionHelper = $this->getHelper('question');
 
         $vhost = new Vhost($input->getArgument('vhostFilename'));
 
-        $manager = new NginxManager($vhost);
+        $manager = ManagerFactory::create();
 
-        $output->writeln("\nThe following files are going to be <error>deleted</error>:\n");
+        $io->warning("The following files are going to be deleted");
 
-        foreach ($manager->getGeneratedFiles() as $file) {
-            $output->writeln("<comment>{$file}</comment>");
-        }
+        $io->listing($manager->getGeneratedFiles($vhost));
 
-        $question = new ConfirmationQuestion(
-            "\n<question>Do you confirm the removal of the vhost? (y/n)</question> ",
-            true
-        );
+        if (!$io->confirm('Do you confirm the removal of the vhost?', true)) {
+            $io->warning("Canceled!! The vhost has not been deleted due to user interruption");
 
-        // Confirm generation
-        if (!$questionHelper->ask($input, $output, $question)) {
-            $output->writeln(
-                "\n<error>Canceled!!</error> The vhost has not been deleted due to user interruption\n"
-            );
             return;
         }
 
-        $manager->deleteVhost()->restartServer();
+        $manager->deleteVhost($vhost);
+        $manager->restartServer();
 
-        $output->writeln("\n<info>Awesome!!</info> Your vhost has been successfully deleted\n");
+        $io->success("Awesome!! Your vhost has been successfully deleted");
     }
 }

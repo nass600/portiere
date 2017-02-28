@@ -3,12 +3,12 @@
 namespace Portiere\WebServer;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Templating\Loader\FilesystemLoader;
-use Symfony\Component\Templating\PhpEngine;
-use Symfony\Component\Templating\TemplateNameParser;
+use Symfony\Component\Templating\EngineInterface;
 
 /**
  * Class Manager
+ *
+ * The Manager handles every web server possible action
  *
  * @package Portiere\WebServer
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
@@ -31,42 +31,37 @@ abstract class Manager
     protected $templating;
 
     /**
-     * @var Vhost
+     * Manager constructor.
+     *
+     * @param Filesystem $fs
+     * @param EngineInterface $templating
      */
-    protected $vhost;
-
-    /**
-     * @param Vhost|null $vhost
-     */
-    public function __construct(Vhost $vhost = null)
+    public function __construct(Filesystem $fs, EngineInterface $templating)
     {
-        $this->vhost = $vhost;
-        $this->fs = new Filesystem();
-
-        $loader = new FilesystemLoader(__DIR__.'/../Resources/views/%name%');
-        $this->templating = new PhpEngine(new TemplateNameParser(), $loader);
+        $this->fs = $fs;
+        $this->templating = $templating;
     }
 
     /**
      * Creates the virtual host related files
      *
-     * @return $this
+     * @param VhostInterface $vhost
      */
-    abstract public function createVhost();
+    abstract public function createVhost(VhostInterface $vhost);
 
     /**
      * Enables the virtual host
      *
-     * @return $this
+     * @param VhostInterface $vhost
      */
-    abstract protected function enableVhost();
+    abstract protected function enableVhost(VhostInterface $vhost);
 
     /**
      * Deletes all virtual host associated files
      *
-     * @return $this
+     * @param VhostInterface $vhost
      */
-    abstract public function deleteVhost();
+    abstract public function deleteVhost(VhostInterface $vhost);
 
     /**
      * Lists current virtual hosts
@@ -78,14 +73,14 @@ abstract class Manager
     /**
      * Gets the generated files for a virtual host
      *
+     * @param VhostInterface $vhost
+     *
      * @return array
      */
-    abstract public function getGeneratedFiles();
+    abstract public function getGeneratedFiles(VhostInterface $vhost);
 
     /**
      * Restarts web server
-     *
-     * @return $this
      */
     abstract public function restartServer();
 }

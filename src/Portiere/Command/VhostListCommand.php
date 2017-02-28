@@ -2,19 +2,23 @@
 
 namespace Portiere\Command;
 
-use Portiere\WebServer\NginxManager;
+use Portiere\WebServer\ManagerFactory;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class VhostListCommand
  *
+ * @package Portiere\Command
  * @author Ignacio Velazquez <ignaciovelazquez@mobail.es>
  */
 class VhostListCommand extends Command
 {
+    /**
+     * {@inheritDoc}
+     */
     protected function configure()
     {
         $this
@@ -22,15 +26,17 @@ class VhostListCommand extends Command
             ->setDescription("List vhosts");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $table = new Table($output);
-        $table->setHeaders(['Vhost Name', 'Enabled']);
+        $io = new SymfonyStyle($input, $output);
+        $manager = ManagerFactory::create();
 
-        $manager = new NginxManager();
-
-        $table->setRows($manager->listVhosts());
-
-        $table->render();
+        $io->table(
+            ['Vhost Name', 'Enabled'],
+            $manager->listVhosts()
+        );
     }
 }

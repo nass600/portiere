@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="docs/img/portiere.png" alt="Portiere - Virtual host builder" width="200" height="160">
+    <img src="docs/img/portiere.png" alt="Portiere - Virtual host builder" width="200" height="156">
     <br>
     Portiere
     <br>

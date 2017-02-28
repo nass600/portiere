@@ -5,10 +5,12 @@ namespace Portiere\WebServer;
 /**
  * Class Vhost
  *
+ * Contains all the information a virtual host needs
+ *
  * @package Portiere\WebServer
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
-class Vhost
+class Vhost implements VhostInterface
 {
     /**
      * @var string Development environment
