@@ -9,25 +9,24 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Class VhostListCommand
+ * Class VhostListCommand.
  *
- * @package Portiere\Command
- * @author Ignacio Velazquez <ignaciovelazquez@mobail.es>
+ * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class VhostListCommand extends Command
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-            ->setName("vhost:list")
-            ->setDescription("List vhosts");
+            ->setName('vhost:list')
+            ->setDescription('List vhosts');
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

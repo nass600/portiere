@@ -3,11 +3,10 @@
 namespace Portiere\WebServer;
 
 /**
- * Class Vhost
+ * Class Vhost.
  *
  * Contains all the information a virtual host needs
  *
- * @package Portiere\WebServer
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class Vhost implements VhostInterface
@@ -58,8 +57,8 @@ class Vhost implements VhostInterface
     public function __construct($filename)
     {
         $this->filename = $filename;
-        $this->errorLogFilename = $this->filename . '.error.log';
-        $this->accessLogFilename = $this->filename . '.access.log';
+        $this->errorLogFilename = $this->filename.'.error.log';
+        $this->accessLogFilename = $this->filename.'.access.log';
     }
 
     /**

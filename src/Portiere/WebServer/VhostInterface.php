@@ -3,29 +3,28 @@
 namespace Portiere\WebServer;
 
 /**
- * Interface VhostInterface
+ * Interface VhostInterface.
  *
- * @package Portiere\WebServer
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 interface VhostInterface
 {
     /**
-     * Gets the filename
+     * Gets the filename.
      *
      * @return string
      */
     public function getFilename();
 
     /**
-     * Gets the error log filename
+     * Gets the error log filename.
      *
      * @return string
      */
     public function getErrorLogFilename();
 
     /**
-     * Gets the access log filename
+     * Gets the access log filename.
      *
      * @return string
      */

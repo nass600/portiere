@@ -9,9 +9,9 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Templating\PhpEngine;
 
 /**
- * Class NginxManagerTest
+ * Class NginxManagerTest.
  *
- * @package WebServer\VhostBuilder
+ * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class NginxManagerTest extends TestCase
 {

@@ -11,21 +11,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Class VhostDeleteCommand
+ * Class VhostDeleteCommand.
  *
- * @package Portiere\Command
- * @author Ignacio Velazquez <ignaciovelazquez@mobail.es>
+ * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class VhostDeleteCommand extends Command
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-            ->setName("vhost:delete")
-            ->setDescription("Deletes a vhost from the web server")
+            ->setName('vhost:delete')
+            ->setDescription('Deletes a vhost from the web server')
             ->addArgument(
                 'vhostFilename',
                 InputArgument::REQUIRED,
@@ -34,7 +33,7 @@ class VhostDeleteCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -44,12 +43,12 @@ class VhostDeleteCommand extends Command
 
         $manager = ManagerFactory::create();
 
-        $io->warning("The following files are going to be deleted");
+        $io->warning('The following files are going to be deleted');
 
         $io->listing($manager->getGeneratedFiles($vhost));
 
         if (!$io->confirm('Do you confirm the removal of the vhost?', true)) {
-            $io->warning("Canceled!! The vhost has not been deleted due to user interruption");
+            $io->warning('Canceled!! The vhost has not been deleted due to user interruption');
 
             return;
         }
@@ -57,6 +56,6 @@ class VhostDeleteCommand extends Command
         $manager->deleteVhost($vhost);
         $manager->restartServer();
 
-        $io->success("Awesome!! Your vhost has been successfully deleted");
+        $io->success('Awesome!! Your vhost has been successfully deleted');
     }
 }

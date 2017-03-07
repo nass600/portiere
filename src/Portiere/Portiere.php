@@ -8,14 +8,14 @@ use Portiere\Command\VhostListCommand;
 use Symfony\Component\Console\Application;
 
 /**
- * Class Portiere
+ * Class Portiere.
  *
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class Portiere extends Application
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getDefaultCommands()
     {

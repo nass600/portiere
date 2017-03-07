@@ -5,11 +5,10 @@ namespace Portiere\WebServer;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class NginxManager
+ * Class NginxManager.
  *
  * Manager handling Nginx web server actions
  *
- * @package Portiere\WebServer
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class NginxManager extends Manager
@@ -25,11 +24,11 @@ class NginxManager extends Manager
     protected $config = [
         'sitesAvailablePath' => '/etc/nginx/sites-available/',
         'sitesEnabledPath' => '/etc/nginx/sites-enabled/',
-        'logsDir' => '/var/log/nginx/'
+        'logsDir' => '/var/log/nginx/',
     ];
 
     /**
-     * Gets the full path of the available vhost file
+     * Gets the full path of the available vhost file.
      *
      * @param VhostInterface $vhost
      *
@@ -41,7 +40,7 @@ class NginxManager extends Manager
     }
 
     /**
-     * Gets the full path of the enabled vhost file
+     * Gets the full path of the enabled vhost file.
      *
      * @param VhostInterface $vhost
      *
@@ -53,7 +52,7 @@ class NginxManager extends Manager
     }
 
     /**
-     * Gets template for this web server
+     * Gets template for this web server.
      *
      * @param VhostInterface $vhost
      *
@@ -63,12 +62,12 @@ class NginxManager extends Manager
     {
         return $this->templating->render(self::TEMPLATE_FILE, [
             'server' => $this->config,
-            'vhost' => $vhost
+            'vhost' => $vhost,
         ]);
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function createVhost(VhostInterface $vhost)
     {
@@ -79,7 +78,7 @@ class NginxManager extends Manager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function enableVhost(VhostInterface $vhost)
     {
@@ -90,7 +89,7 @@ class NginxManager extends Manager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function deleteVhost(VhostInterface $vhost)
     {
@@ -100,7 +99,7 @@ class NginxManager extends Manager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function listVhosts()
     {
@@ -119,7 +118,7 @@ class NginxManager extends Manager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getGeneratedFiles(VhostInterface $vhost)
     {
@@ -127,15 +126,15 @@ class NginxManager extends Manager
             $this->getVhostAvailablePath($vhost),
             $this->getVhostEnabledPath($vhost),
             "{$this->config['logsDir']}{$vhost->getErrorLogFilename()}",
-            "{$this->config['logsDir']}{$vhost->getAccessLogFilename()}"
+            "{$this->config['logsDir']}{$vhost->getAccessLogFilename()}",
         ];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function restartServer()
     {
-        shell_exec("service nginx restart");
+        shell_exec('service nginx restart');
     }
 }

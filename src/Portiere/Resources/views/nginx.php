@@ -6,7 +6,7 @@ server {
         try_files $uri /app.php$is_args$args;
     }
 
-    <?php if ($vhost->getEnv() === "dev") : ?>
+    <?php if ($vhost->getEnv() === 'dev') : ?>
     location ~ ^/(app_dev|config)\.php(/|$) {
         fastcgi_pass 127.0.0.1:9000;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
@@ -29,6 +29,6 @@ server {
         return 404;
     }
 
-    error_log <?php echo $server['logsDir'] . $vhost->getErrorLogFilename() ?>;
-    access_log <?php echo $server['logsDir'] . $vhost->getAccessLogFilename() ?>;
+    error_log <?php echo $server['logsDir'].$vhost->getErrorLogFilename() ?>;
+    access_log <?php echo $server['logsDir'].$vhost->getAccessLogFilename() ?>;
 }

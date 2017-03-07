@@ -8,17 +8,16 @@ use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\TemplateNameParser;
 
 /**
- * Class ManagerFactory
+ * Class ManagerFactory.
  *
  * The ManagerFactory creates a Manager instances of the currently running web server
  *
- * @package Portiere\WebServer
  * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class ManagerFactory
 {
     /**
-     * Creates a Manager depending on the running web server
+     * Creates a Manager depending on the running web server.
      *
      * @return NginxManager
      */

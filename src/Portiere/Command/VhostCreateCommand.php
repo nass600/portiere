@@ -12,21 +12,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Class VhostCreateCommand
+ * Class VhostCreateCommand.
  *
- * @package Portiere\Command
- * @author Ignacio Velazquez <ignaciovelazquez@mobail.es>
+ * @author Ignacio Velazquez <ivelazquez85@gmail.com>
  */
 class VhostCreateCommand extends Command
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-            ->setName("vhost:create")
-            ->setDescription("Creates a vhost for this project")
+            ->setName('vhost:create')
+            ->setDescription('Creates a vhost for this project')
             ->addArgument(
                 'serverName',
                 InputArgument::REQUIRED,
@@ -52,7 +51,7 @@ class VhostCreateCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -80,7 +79,7 @@ class VhostCreateCommand extends Command
         $io->text($manager->getTemplate($vhost));
 
         if (!$io->confirm('Do you confirm the vhost generation?', true)) {
-            $io->warning("Canceled!! The vhost has not been created due to user interruption");
+            $io->warning('Canceled!! The vhost has not been created due to user interruption');
 
             return;
         }
@@ -88,10 +87,10 @@ class VhostCreateCommand extends Command
         $manager->createVhost($vhost);
         $manager->restartServer();
 
-        $io->success("Your vhost has been successfully created and enabled");
+        $io->success('Your vhost has been successfully created and enabled');
 
         $io->newLine();
-        $output->writeln("You should append this line to your <info>/etc/hosts</info> file:");
+        $output->writeln('You should append this line to your <info>/etc/hosts</info> file:');
         $io->newLine();
         $output->writeln("<info>127.0.0.1\t{$vhost->getServerName()}</info>\n");
     }
