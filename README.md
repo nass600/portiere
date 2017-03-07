@@ -22,7 +22,9 @@
     <a href="https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f">
         <img src="https://insight.sensiolabs.com/projects/9e74d5de-38cd-498b-b2dc-cc834479406f/mini.png" alt="SensioLabs Insight"/>
     </a>
-
+    <a href="https://styleci.io/repos/28810959">
+        <img src="https://styleci.io/repos/28810959/shield?branch=master" alt="StyleCI">
+    </a>
 </p>
 
 <h4 align="center">
