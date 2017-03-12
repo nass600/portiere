@@ -25,6 +25,13 @@
     <a href="https://styleci.io/repos/28810959">
         <img src="https://styleci.io/repos/28810959/shield?branch=master" alt="StyleCI">
     </a>
+    <a href="https://scrutinizer-ci.com/g/nass600/portiere/?branch=master">
+        <img src="https://scrutinizer-ci.com/g/nass600/portiere/badges/quality-score.png?b=master" alt="Scrutinizer Quality Score">
+    </a>
+    <a href="https://scrutinizer-ci.com/g/nass600/portiere/?branch=master">
+        <img src="https://scrutinizer-ci.com/g/nass600/portiere/badges/coverage.png?b=master" alt="Code Coverage">
+    </a>
+
 </p>
 
 <h4 align="center">
