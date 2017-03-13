@@ -20,10 +20,10 @@
     <filter>
         <whitelist>
             <directory suffix=".php">./src/</directory>
+            <exclude>
+                <directory suffix=".php">./src/Portiere/Resources/</directory>
+            </exclude>
         </whitelist>
-        <exclude>
-            <directory suffix=".php">./vendor/</directory>
-        </exclude>
     </filter>
 
     <logging>
